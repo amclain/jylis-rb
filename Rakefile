@@ -1,0 +1,23 @@
+require "rspec/core/rake_task"
+require "yard"
+
+task :default => [:test]
+
+# Run tests.
+RSpec::Core::RakeTask.new :test
+
+# Build the gem.
+task :build => [:doc] do
+  Dir["*.gem"].each {|file| File.delete file}
+  system "gem build *.gemspec"
+end
+
+# Rebuild and [re]install the gem.
+task :install => [:build] do
+  system "gem install *.gem"
+end
+
+# Generate documentation.
+YARD::Rake::YardocTask.new :doc do |task|
+  task.options = %w(- README.md license.txt)
+end
