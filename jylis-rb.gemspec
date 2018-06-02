@@ -1,8 +1,8 @@
-version = File.read(File.expand_path("../version", __FILE__)).strip
+require_relative "lib/jylis-rb/version"
 
 Gem::Specification.new do |spec|
   spec.name        = "jylis-rb"
-  spec.version     = version
+  spec.version     = Jylis::VERSION
   spec.date        = Time.now.strftime "%Y-%m-%d"
   spec.summary     = "An idiomatic library for connecting a Ruby project to a Jylis database."
   spec.description = ""
