@@ -4,6 +4,8 @@ require "coveralls"
 
 require_relative "../lib/jylis-rb"
 
+Coveralls.noisy = true # Display code coverage locally.
+
 Coveralls.wear!
 
 Thread.abort_on_exception = true
