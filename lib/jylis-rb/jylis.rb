@@ -1,4 +1,5 @@
 require_relative "version" # Version reopens this class.
+require_relative "connection"
 
 # Jylis database adapter.
 class Jylis
@@ -7,6 +8,17 @@ class Jylis
   class << self
     # The current connection.
     attr_accessor :current
+
+    # Connect to a server and store the current connection.
+    #
+    # @param server_uri [URI, String] uri of the server to connect to
+    #
+    # @return [Jylis::Connection] connection
+    def connect(server_uri)
+      disconnect if current && current.connected?
+
+      self.current = Jylis::Connection.new(server_uri)
+    end
 
     # @see Jylis::Connection#connected?
     def connected?

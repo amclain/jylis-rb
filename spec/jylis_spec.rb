@@ -11,6 +11,8 @@ describe Jylis do
     hiredis_mock.should_receive(:connect).with(server_name, server_port).exactly(:once)
   end
 
+  before { Jylis.current = nil }
+
   specify "can't be instantiated" do
     Jylis.should_not respond_to(:new)
   end
@@ -21,6 +23,35 @@ describe Jylis do
     specify "can be set and get" do
       Jylis.current = connection
       Jylis.current.should eq connection
+    end
+  end
+
+  describe "connect" do
+    specify "when not connected" do
+      expect_hiredis_connection
+
+      Jylis.current.should eq nil
+
+      Jylis.connect(server_uri)
+        .should be_a Jylis::Connection
+
+      Jylis.current.should be_a Jylis::Connection
+    end
+
+    specify "when already connected" do
+      Hiredis::Connection.should_receive(:new).exactly(:twice) { hiredis_mock }
+      hiredis_mock.should_receive(:connect).with(server_name, server_port).exactly(:twice)
+      Jylis.current.should eq nil
+
+      Jylis.current = connection
+
+      hiredis_mock.should_receive(:disconnect).exactly(:once)
+
+      Jylis.connect(server_uri)
+        .should be_a Jylis::Connection
+
+      Jylis.current.should be_a Jylis::Connection
+      Jylis.current.should_not eq connection
     end
   end
 

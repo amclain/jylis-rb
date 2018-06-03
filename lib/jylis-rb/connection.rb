@@ -8,6 +8,8 @@ class Jylis
     # The host is missing from the server URI.
     class HostMissingError < StandardError; end
 
+    # @param server_uri [URI, String] uri of the server to connect to
+    #
     # @raise [UnsupportedSchemaError] if the server URI schema is not supported
     # @raise [HostMissingError] if the host is missing from the server URI
     def initialize(server_uri)
