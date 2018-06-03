@@ -20,6 +20,7 @@ describe Jylis::Connection do
     specify { connection.should respond_to(:reconnect) }
     specify { connection.should respond_to(:disconnect) }
     specify { connection.should respond_to(:query) }
+    specify { connection.should respond_to(:treg) }
   end
 
   it "is instantiated with a server URI" do
@@ -137,6 +138,14 @@ describe Jylis::Connection do
 
     specify "as an array" do
       connection.query(query_params).should eq query_response
+    end
+  end
+
+  describe "data types" do
+    before { expect_hiredis_connection }
+
+    specify "treg" do
+      connection.treg.should be_a Jylis::DataType::TREG
     end
   end
 end

@@ -65,6 +65,13 @@ class Jylis
       @connection.read
     end
 
+    # TREG functions
+    #
+    # @return [Jylis::TREG]
+    def treg
+      @treg ||= Jylis::DataType::TREG.new(self)
+    end
+
     private
 
     # Connect to the server.

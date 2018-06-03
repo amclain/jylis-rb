@@ -39,5 +39,10 @@ class Jylis
     def query(*args)
       current.query(*args)
     end
+
+    # @see Jylis::Connection#treg
+    def treg
+      current.treg
+    end
   end
 end

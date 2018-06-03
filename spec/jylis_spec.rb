@@ -60,5 +60,6 @@ describe Jylis do
     specify { Jylis.should respond_to(:reconnect) }
     specify { Jylis.should respond_to(:disconnect) }
     specify { Jylis.should respond_to(:query) }
+    specify { Jylis.should respond_to(:treg) }
   end
 end
