@@ -13,6 +13,15 @@ describe Jylis::DataType::TREG::Result do
     treg_result.timestamp.should eq timestamp
   end
 
+  it "can parse a result" do
+    result = [value, timestamp]
+
+    treg_result = Jylis::DataType::TREG::Result.parse(result)
+
+    treg_result.value.should eq value
+    treg_result.timestamp.should eq timestamp
+  end
+
   it "can be compared for equality" do
     other_result = Jylis::DataType::TREG::Result.new(value, timestamp)
 
@@ -21,5 +30,11 @@ describe Jylis::DataType::TREG::Result do
     other_result = Jylis::DataType::TREG::Result.new("bogus", 1)
 
     treg_result.should_not eq other_result
+  end
+
+  specify "to_a reconstructs the raw result returned by the database" do
+    expected = [value, timestamp]
+
+    treg_result.to_a.should eq expected
   end
 end

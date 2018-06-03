@@ -9,15 +9,29 @@ class Jylis
         attr_reader :value
         attr_reader :timestamp
 
+        # Construct a Result from a raw query result.
+        #
+        # @param query_result [Array]
+        #
+        # @return [Jylis::DataType::TREG::Result]
+        def self.parse(query_result)
+          new(query_result[0], query_result[1])
+        end
+
+        def initialize(value, timestamp)
+          @value     = value
+          @timestamp = timestamp
+        end
+
         # :nodoc:
         def ==(other)
           other.value == self.value &&
           other.timestamp == self.timestamp
         end
 
-        def initialize(value, timestamp)
-          @value     = value
-          @timestamp = timestamp
+        # Reconstruct the raw result returned by the database.
+        def to_a
+          [value, timestamp]
         end
       end
 
@@ -27,7 +41,7 @@ class Jylis
       def get(key)
         result = connection.query("TREG", "GET", key)
 
-        Result.new(result[0], result[1])
+        Result.parse(result)
       end
 
       # Set a `value` and `timestamp` for the register at `key`.
