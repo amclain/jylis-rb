@@ -3,11 +3,11 @@ require "rspec/its"
 require "coveralls"
 require "ostruct"
 
-require_relative "../lib/jylis-rb"
-
 Coveralls.noisy = true # Display code coverage locally.
 
 Coveralls.wear!
+
+require_relative "../lib/jylis-rb"
 
 Thread.abort_on_exception = true
 
