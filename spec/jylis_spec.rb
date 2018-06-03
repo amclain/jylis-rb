@@ -96,5 +96,13 @@ describe Jylis do
 
       Jylis.treg.should eq treg
     end
+
+    specify "gcount" do
+      gcount = OpenStruct.new
+
+      connection.should_receive(:gcount).exactly(:once) { gcount }
+
+      Jylis.gcount.should eq gcount
+    end
   end
 end

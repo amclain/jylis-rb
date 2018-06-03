@@ -67,9 +67,16 @@ class Jylis
 
     # TREG functions
     #
-    # @return [Jylis::TREG]
+    # @return [Jylis::DataType::TREG]
     def treg
       @treg ||= Jylis::DataType::TREG.new(self)
+    end
+
+    # GCOUNT functions
+    #
+    # @return [Jylis::DataType::GCOUNT]
+    def gcount
+      @gcount ||= Jylis::DataType::GCOUNT.new(self)
     end
 
     private

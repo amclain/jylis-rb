@@ -44,5 +44,10 @@ class Jylis
     def treg
       current.treg
     end
+
+    # @see Jylis::Connection#gcount
+    def gcount
+      current.gcount
+    end
   end
 end

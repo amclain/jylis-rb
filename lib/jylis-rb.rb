@@ -4,3 +4,4 @@ require_relative "jylis-rb/connection"
 
 require_relative "jylis-rb/data_types/base"
 require_relative "jylis-rb/data_types/treg"
+require_relative "jylis-rb/data_types/gcount"
