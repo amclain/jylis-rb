@@ -11,12 +11,23 @@ describe Jylis do
     hiredis_mock.should_receive(:connect).with(server_name, server_port).exactly(:once)
   end
 
-  before { expect_hiredis_connection }
+  specify "can't be instantiated" do
+    Jylis.should_not respond_to(:new)
+  end
 
   describe "current connection" do
+    before { expect_hiredis_connection }
+
     specify "can be set and get" do
       Jylis.current = connection
       Jylis.current.should eq connection
     end
+  end
+
+  describe "forwarded methods" do
+    specify { Jylis.should respond_to(:connected?) }
+    specify { Jylis.should respond_to(:reconnect) }
+    specify { Jylis.should respond_to(:disconnect) }
+    specify { Jylis.should respond_to(:query) }
   end
 end
