@@ -13,7 +13,11 @@ describe Jylis::DataType::TREG do
   specify "get" do
     connection.should_receive(:query).with("TREG", "GET", key) { [value, timestamp] }
 
-    treg.get(key).should eq({value: value, timestamp: timestamp})
+    result = treg.get(key)
+
+    result.should be_a Jylis::DataType::TREG::Result
+    result.value.should eq value
+    result.timestamp.should eq timestamp
   end
 
   specify "set" do

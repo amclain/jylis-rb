@@ -4,13 +4,30 @@ class Jylis
     #
     # @see https://jemc.github.io/jylis/docs/types/treg/
     class TREG < Base
+      # The result of a TREG query.
+      class Result
+        attr_reader :value
+        attr_reader :timestamp
+
+        # :nodoc:
+        def ==(other)
+          other.value == self.value &&
+          other.timestamp == self.timestamp
+        end
+
+        def initialize(value, timestamp)
+          @value     = value
+          @timestamp = timestamp
+        end
+      end
+
       # Get the latest `value` and `timestamp` for the register at `key`.
       #
       # @return [Hash]
       def get(key)
         result = connection.query("TREG", "GET", key)
 
-        {value: result[0], timestamp: result[1]}
+        Result.new(result[0], result[1])
       end
 
       # Set a `value` and `timestamp` for the register at `key`.
