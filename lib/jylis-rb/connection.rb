@@ -72,6 +72,13 @@ class Jylis
       @treg ||= Jylis::DataType::TREG.new(self)
     end
 
+    # TLOG functions
+    #
+    # @return [Jylis::DataType::TLOG]
+    def tlog
+      @tlog ||= Jylis::DataType::TLOG.new(self)
+    end
+
     # GCOUNT functions
     #
     # @return [Jylis::DataType::GCOUNT]

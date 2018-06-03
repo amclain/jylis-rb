@@ -150,6 +150,10 @@ describe Jylis::Connection do
       connection.treg.should be_a Jylis::DataType::TREG
     end
 
+    specify "tlog" do
+      connection.tlog.should be_a Jylis::DataType::TLOG
+    end
+
     specify "gcount" do
       connection.gcount.should be_a Jylis::DataType::GCOUNT
     end

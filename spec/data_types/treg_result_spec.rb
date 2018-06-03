@@ -6,6 +6,8 @@ describe Jylis::DataType::TREG::Result do
   describe "interface" do
     specify { treg_result.should respond_to(:value) }
     specify { treg_result.should respond_to(:timestamp) }
+    specify { treg_result.should respond_to(:==) }
+    specify { treg_result.should respond_to(:to_a) }
   end
 
   it "initializes correctly" do
