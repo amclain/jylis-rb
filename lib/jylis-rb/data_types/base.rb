@@ -9,7 +9,7 @@ class Jylis
       # The Jylis::Connection to use for queries.
       attr_reader :connection
 
-      # @param connecton [Jylis::Connection] connection to use for queries
+      # @param connection [Jylis::Connection] connection to use for queries
       def initialize(connection)
         if self.class == Base
           raise "Base is an abstract class and must be inherited"
