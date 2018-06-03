@@ -1,6 +1,7 @@
 require "pry"
 require "rspec/its"
 require "coveralls"
+require "ostruct"
 
 require_relative "../lib/jylis-rb"
 
