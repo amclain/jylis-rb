@@ -56,10 +56,45 @@ describe Jylis do
   end
 
   describe "forwarded methods" do
-    specify { Jylis.should respond_to(:connected?) }
-    specify { Jylis.should respond_to(:reconnect) }
-    specify { Jylis.should respond_to(:disconnect) }
-    specify { Jylis.should respond_to(:query) }
-    specify { Jylis.should respond_to(:treg) }
+    let(:connection) { OpenStruct.new }
+
+    before { Jylis.current = connection }
+
+    specify "connected?" do
+      connection.should_receive(:connected?).exactly(:once) { true }
+
+      Jylis.connected?.should eq true
+    end
+
+    specify "reconnect" do
+      connection.should_receive(:reconnect).exactly(:once)
+
+      Jylis.reconnect
+    end
+
+    specify "disconnect" do
+      connection.should_receive(:disconnect).exactly(:once)
+
+      Jylis.disconnect
+    end
+
+    specify "query" do
+      params = ["TREG", "GET", "key"]
+      result = [72.1, 100]
+
+      connection.should_receive(:query).with(*params).exactly(:once) {
+        result
+      }
+
+      Jylis.query(*params).should eq result
+    end
+
+    specify "treg" do
+      treg = OpenStruct.new
+
+      connection.should_receive(:treg).exactly(:once) { treg }
+
+      Jylis.treg.should eq treg
+    end
   end
 end
