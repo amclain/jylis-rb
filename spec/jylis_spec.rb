@@ -104,5 +104,13 @@ describe Jylis do
 
       Jylis.gcount.should eq gcount
     end
+
+    specify "pncount" do
+      pncount = OpenStruct.new
+
+      connection.should_receive(:pncount).exactly(:once) { pncount }
+
+      Jylis.pncount.should eq pncount
+    end
   end
 end

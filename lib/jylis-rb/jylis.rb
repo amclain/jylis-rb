@@ -49,5 +49,10 @@ class Jylis
     def gcount
       current.gcount
     end
+
+    # @see Jylis::Connection#pncount
+    def pncount
+      current.pncount
+    end
   end
 end

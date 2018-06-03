@@ -22,6 +22,7 @@ describe Jylis::Connection do
     specify { connection.should respond_to(:query) }
     specify { connection.should respond_to(:treg) }
     specify { connection.should respond_to(:gcount) }
+    specify { connection.should respond_to(:pncount) }
   end
 
   it "is instantiated with a server URI" do
@@ -151,6 +152,10 @@ describe Jylis::Connection do
 
     specify "gcount" do
       connection.gcount.should be_a Jylis::DataType::GCOUNT
+    end
+
+    specify "pncount" do
+      connection.pncount.should be_a Jylis::DataType::PNCOUNT
     end
   end
 end

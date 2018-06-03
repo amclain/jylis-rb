@@ -79,6 +79,13 @@ class Jylis
       @gcount ||= Jylis::DataType::GCOUNT.new(self)
     end
 
+    # PNCOUNT functions
+    #
+    # @return [Jylis::DataType::PNCOUNT]
+    def pncount
+      @pncount ||= Jylis::DataType::PNCOUNT.new(self)
+    end
+
     private
 
     # Connect to the server.
