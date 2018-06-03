@@ -36,8 +36,8 @@ class Jylis
     end
 
     # @see Jylis::Connection#query
-    def query
-      current.query
+    def query(*args)
+      current.query(*args)
     end
   end
 end
