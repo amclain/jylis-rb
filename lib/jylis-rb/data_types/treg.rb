@@ -37,7 +37,7 @@ class Jylis
 
       # Get the latest `value` and `timestamp` for the register at `key`.
       #
-      # @return [Hash]
+      # @return [Jylis::DataType::TREG::Result]
       def get(key)
         result = connection.query("TREG", "GET", key)
 
