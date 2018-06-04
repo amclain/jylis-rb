@@ -28,6 +28,14 @@ describe Jylis::DataType::UJSON do
       result.should eq values
     end
 
+    specify "returns an empty string if no value is present" do
+      connection.should_receive(:query).with("UJSON", "GET", key) { "" }
+
+      result = ujson.get(key)
+
+      result.should eq ""
+    end
+
     it "raises an error if no keys are provided" do
       connection.should_not_receive(:query)
 

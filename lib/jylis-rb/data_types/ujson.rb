@@ -18,7 +18,7 @@ class Jylis
 
         result = connection.query(*params)
 
-        Oj.load(result)
+        result == "" ? result : Oj.load(result)
       end
 
       # Store the given `ujson` data at the given `key`.
