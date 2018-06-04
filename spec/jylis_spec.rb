@@ -89,52 +89,23 @@ describe Jylis do
       Jylis.query(*params).should eq result
     end
 
-    specify "treg" do
-      treg = OpenStruct.new
+    describe "data types" do
+      shared_examples :data_type do |name|
+        specify name do
+          mock = OpenStruct.new
 
-      connection.should_receive(:treg).exactly(:once) { treg }
+          connection.should_receive(name).exactly(:once) { mock }
 
-      Jylis.treg.should eq treg
-    end
+          Jylis.send(name).should eq mock
+        end
+      end
 
-    specify "tlog" do
-      tlog = OpenStruct.new
-
-      connection.should_receive(:tlog).exactly(:once) { tlog }
-
-      Jylis.tlog.should eq tlog
-    end
-
-    specify "gcount" do
-      gcount = OpenStruct.new
-
-      connection.should_receive(:gcount).exactly(:once) { gcount }
-
-      Jylis.gcount.should eq gcount
-    end
-
-    specify "pncount" do
-      pncount = OpenStruct.new
-
-      connection.should_receive(:pncount).exactly(:once) { pncount }
-
-      Jylis.pncount.should eq pncount
-    end
-
-    specify "mvreg" do
-      mvreg = OpenStruct.new
-
-      connection.should_receive(:mvreg).exactly(:once) { mvreg }
-
-      Jylis.mvreg.should eq mvreg
-    end
-
-    specify "ujson" do
-      ujson = OpenStruct.new
-
-      connection.should_receive(:ujson).exactly(:once) { ujson }
-
-      Jylis.ujson.should eq ujson
+      include_examples :data_type, :treg
+      include_examples :data_type, :tlog
+      include_examples :data_type, :gcount
+      include_examples :data_type, :pncount
+      include_examples :data_type, :mvreg
+      include_examples :data_type, :ujson
     end
   end
 end
