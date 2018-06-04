@@ -75,3 +75,49 @@ of the database host to connect to. The `port` is optional and defaults to
 ```ruby
 Jylis.connect("jylis://host:port")
 ```
+
+## Queries
+
+This library aims to be idiomatic with both Ruby and Jylis. Therefore, the
+syntax of the queries closely match the [Jylis documentation](https://jemc.github.io/jylis/docs/types/)
+and ideally it should feel so natural to you, a Ruby programmer, that you don't
+need to read the documentation for this library (although this library is
+thoroughly documented in the case that you do).
+
+For example, take the case of a Jylis query to set a value for a
+[`UJSON`](https://jemc.github.io/jylis/docs/types/ujson/#set-key-key-ujson) key:
+
+```text
+UJSON SET fruit apple properties '{"color": "red", "ripe": true}'
+```
+
+Using this library, the query looks like this:
+
+```ruby
+Jylis.ujson.set "fruit", "apple", "properties", {color: "red", ripe: true}
+```
+
+The format for a query is:
+
+```text
+Jylis.<data_type>.<function> key(s), [value], [timestamp]
+```
+
+However, be sure to consult the [API documentation](http://www.rubydoc.info/gems/jylis-rb)
+or the [Jylis documentation](https://jemc.github.io/jylis/docs/types/) for the
+exact format of your particular query.
+
+### Raw Query
+
+If this library doesn't contain a method for the query you would like to
+perform, you can construct the query yourself by calling `Jylis.query`.
+However, be aware that this method is non-idiomatic and may require you to
+do your own pre/post processing on the data.
+
+```ruby
+Jylis.query "TLOG", "INS", "temperature", 72.6, 5
+# => "OK"
+
+Jylis.query "TLOG", "GET", "temperature"
+# => [["72.6", 5]]
+```
