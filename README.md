@@ -123,6 +123,40 @@ result.timestamp
 # => 1528082143
 ```
 
+### TLOG
+
+Timestamped Log <sup>[[link](https://jemc.github.io/jylis/docs/types/tlog/)]</sup>
+
+```ruby
+Jylis.tlog.ins "temperature", 68.8, 1528082150
+Jylis.tlog.ins "temperature", 70.1, 1528082160
+Jylis.tlog.ins "temperature", 73.6, 1528082170
+
+Jylis.tlog.size "temperature"
+# => 3
+
+result = Jylis.tlog.get "temperature"
+# => #<Jylis::DataType::TLOG::Result:0x00005598dd345d20
+#  @rows=
+#   [#<Jylis::DataType::TLOG::Row:0x00005598dd345d98 @timestamp=1528082170, @value="73.6">,
+#    #<Jylis::DataType::TLOG::Row:0x00005598dd345d70 @timestamp=1528082160, @value="70.1">,
+#    #<Jylis::DataType::TLOG::Row:0x00005598dd345d48 @timestamp=1528082150, @value="68.8">]>
+
+result.first.value
+# => "73.6"
+result.first.timestamp
+# => 1528082170
+
+Jylis.tlog.trim "temperature", 1
+
+Jylis.tlog.get "temperature"
+# => #<Jylis::DataType::TLOG::Result:0x00005598dd2faac8
+#  @rows=[#<Jylis::DataType::TLOG::Row:0x00005598dd2faaf0 @timestamp=1528082170, @value="73.6">]>
+
+Jylis.tlog.cutoff "temperature"
+# => 1528082170
+```
+
 ### Raw Query
 
 If this library doesn't contain a method for the query you would like to
