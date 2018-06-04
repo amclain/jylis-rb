@@ -56,7 +56,7 @@ $ bundle install
 Ensure the tests pass:
 
 ```text
-$ rake
+$ bundle exec rake
 ```
 
 Install the gem from the working source code:
