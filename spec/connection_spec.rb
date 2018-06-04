@@ -162,6 +162,10 @@ describe Jylis::Connection do
       connection.pncount.should be_a Jylis::DataType::PNCOUNT
     end
 
+    specify "mvreg" do
+      connection.mvreg.should be_a Jylis::DataType::MVREG
+    end
+
     specify "ujson" do
       connection.ujson.should be_a Jylis::DataType::UJSON
     end

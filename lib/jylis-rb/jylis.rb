@@ -60,6 +60,11 @@ class Jylis
       current.pncount
     end
 
+    # @see Jylis::Connection#mvreg
+    def mvreg
+      current.mvreg
+    end
+
     # @see Jylis::Connection#ujson
     def ujson
       current.ujson

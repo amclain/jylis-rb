@@ -121,6 +121,14 @@ describe Jylis do
       Jylis.pncount.should eq pncount
     end
 
+    specify "mvreg" do
+      mvreg = OpenStruct.new
+
+      connection.should_receive(:mvreg).exactly(:once) { mvreg }
+
+      Jylis.mvreg.should eq mvreg
+    end
+
     specify "ujson" do
       ujson = OpenStruct.new
 

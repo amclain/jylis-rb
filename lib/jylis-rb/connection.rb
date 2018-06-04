@@ -93,6 +93,13 @@ class Jylis
       @pncount ||= Jylis::DataType::PNCOUNT.new(self)
     end
 
+    # MVREG functions
+    #
+    # @return [Jylis::DataType::MVREG]
+    def mvreg
+      @mvreg ||= Jylis::DataType::MVREG.new(self)
+    end
+
     # UJSON functions
     #
     # @return [Jylis::DataType::UJSON]
