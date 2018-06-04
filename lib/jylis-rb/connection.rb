@@ -65,6 +65,8 @@ class Jylis
       @connection.read
     end
 
+    # @!group Data Types
+
     # TREG functions
     #
     # @return [Jylis::DataType::TREG]
@@ -113,5 +115,7 @@ class Jylis
     def connect
       @connection.connect(@server_host, @server_port)
     end
+
+    # @!endgroup
   end
 end
