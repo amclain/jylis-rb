@@ -25,21 +25,7 @@ class Jylis
       #
       # @overload set(*keys, value)
       def set(*args)
-        unless args.count >= 2
-          raise ArgumentError.new("Must provide at least one key and the value")
-        end
-
-        value = args.pop
-        keys  = args
-
-        params = ["UJSON", "SET"] + keys
-        params.push Oj.dump(value)
-
-        result = connection.query(*params)
-
-        unless result == "OK"
-          raise "Failed: UJSON SET #{params.join(' ')}"
-        end
+        key_value_query(__method__, *args)
       end
 
       # Remove all data stored at or under the given `key`.
@@ -62,41 +48,38 @@ class Jylis
       #
       # @overload ins(*keys, value)
       def ins(*args)
-        unless args.count >= 2
-          raise ArgumentError.new("Must provide at least one key and the value")
-        end
-
-        value = args.pop
-        keys  = args
-
-        params = ["UJSON", "INS"] + keys
-        params.push Oj.dump(value)
-
-        result = connection.query(*params)
-
-        unless result == "OK"
-          raise "Failed: UJSON INS #{params.join(' ')}"
-        end
+        key_value_query(__method__, *args)
       end
 
       # Remove the specified `value` from the set of values stored at `key`.
       #
       # @overload rm(*keys, value)
       def rm(*args)
+        key_value_query(__method__, *args)
+      end
+
+      private
+
+      # Execute a query consisting of (*keys, value) that returns "OK" on success.
+      #
+      # @param function [String, Symbol] the Jylis function name
+      # @param args [Array] the list of keys, with the value last
+      def key_value_query(function, *args)
         unless args.count >= 2
           raise ArgumentError.new("Must provide at least one key and the value")
         end
 
-        value = args.pop
-        keys  = args
+        function = function.to_s.upcase
+        value    = args.pop
+        keys     = args
 
-        params = ["UJSON", "RM"] + keys
+        params = ["UJSON", function] + keys
         params.push Oj.dump(value)
 
         result = connection.query(*params)
 
         unless result == "OK"
-          raise "Failed: UJSON RM #{params.join(' ')}"
+          raise "Failed: UJSON #{function} #{params.join(' ')}"
         end
       end
     end
