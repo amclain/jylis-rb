@@ -169,6 +169,18 @@ Jylis.gcount.get "mileage"
 # => 15
 ```
 
+### PNCOUNT
+
+Positive/Negative Counter <sup>[[link](https://jemc.github.io/jylis/docs/types/pncount/)]</sup>
+
+```ruby
+Jylis.pncount.inc "subscribers", 3
+Jylis.pncount.dec "subscribers", 1
+
+Jylis.pncount.get "subscribers"
+# => 2
+```
+
 ### Raw Query
 
 If this library doesn't contain a method for the query you would like to
