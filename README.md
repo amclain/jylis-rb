@@ -197,9 +197,9 @@ Jylis.mvreg.get "thermostat"
 Unordered JSON <sup>[[link](https://jemc.github.io/jylis/docs/types/ujson/)]</sup>
 
 ```ruby
-Jylis.ujson.set "users", "alice", "admin", false
-Jylis.ujson.set "users", "brett", "admin", false
-Jylis.ujson.set "users", "carol", "admin", true
+Jylis.ujson.set "users", "alice", {"admin": false}
+Jylis.ujson.set "users", "brett", {"admin": false}
+Jylis.ujson.set "users", "carol", {"admin": true}
 
 Jylis.ujson.get "users"
 # => {"brett"=>{"admin"=>false}, "carol"=>{"admin"=>true}, "alice"=>{"admin"=>false}}
