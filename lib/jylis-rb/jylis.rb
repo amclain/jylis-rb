@@ -23,6 +23,8 @@ class Jylis
     # @return [Boolean] true if a connection to the current server is established
     # @see Jylis::Connection#connected?
     def connected?
+      return false unless current
+
       current.connected?
     end
 

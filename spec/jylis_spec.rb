@@ -60,10 +60,18 @@ describe Jylis do
 
     before { Jylis.current = connection }
 
-    specify "connected?" do
-      connection.should_receive(:connected?).exactly(:once) { true }
+    describe "connected?" do
+      specify do
+        connection.should_receive(:connected?).exactly(:once) { true }
 
-      Jylis.connected?.should eq true
+        Jylis.connected?.should eq true
+      end
+
+      it "returns false if the current instance is nil" do
+        Jylis.current = nil
+
+        Jylis.connected?.should eq false
+      end
     end
 
     specify "reconnect" do
