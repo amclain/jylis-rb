@@ -192,6 +192,26 @@ Jylis.mvreg.get "thermostat"
 # => ["68"]
 ```
 
+### UJSON
+
+Unordered JSON <sup>[[link](https://jemc.github.io/jylis/docs/types/ujson/)]</sup>
+
+```ruby
+Jylis.ujson.set "users", "alice", "admin", false
+Jylis.ujson.set "users", "brett", "admin", false
+Jylis.ujson.set "users", "carol", "admin", true
+
+Jylis.ujson.get "users"
+# => {"brett"=>{"admin"=>false}, "carol"=>{"admin"=>true}, "alice"=>{"admin"=>false}}
+
+Jylis.ujson.ins "users", "brett", "banned", true
+
+Jylis.ujson.clr "users", "alice"
+
+Jylis.ujson.get "users"
+# => {"brett"=>{"banned"=>true, "admin"=>false}, "carol"=>{"admin"=>true}}
+```
+
 ### Raw Query
 
 If this library doesn't contain a method for the query you would like to
