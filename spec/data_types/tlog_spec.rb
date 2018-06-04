@@ -16,20 +16,39 @@ describe Jylis::DataType::TLOG do
     specify { tlog.should respond_to(:clr) }
   end
 
-  specify "get" do
-    connection.should_receive(:query).with("TLOG", "GET", key) {[
-      [68, 1],
-      [70, 2],
-    ]}
+  describe "get" do
+    specify "without count" do
+      connection.should_receive(:query).with("TLOG", "GET", key) {[
+        [68, 1],
+        [70, 2],
+      ]}
 
-    result = tlog.get(key)
+      result = tlog.get(key)
 
-    result.should be_a Jylis::DataType::TLOG::Result
-    
-    result[0].value.should eq 68
-    result[0].timestamp.should eq 1
-    result[1].value.should eq 70
-    result[1].timestamp.should eq 2
+      result.should be_a Jylis::DataType::TLOG::Result
+      result.count.should eq 2
+
+      result[0].value.should eq 68
+      result[0].timestamp.should eq 1
+      result[1].value.should eq 70
+      result[1].timestamp.should eq 2
+    end
+
+    specify "with count" do
+      count = 1
+
+      connection.should_receive(:query).with("TLOG", "GET", key, count) {[
+        [68, 1],
+      ]}
+
+      result = tlog.get(key, count)
+
+      result.should be_a Jylis::DataType::TLOG::Result
+      result.count.should eq count
+
+      result[0].value.should eq 68
+      result[0].timestamp.should eq 1
+    end
   end
 
   specify "ins" do

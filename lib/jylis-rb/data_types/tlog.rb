@@ -81,8 +81,12 @@ class Jylis
       # Get the latest `value` and `timestamp` for the register at `key`.
       #
       # @return [Jylis::DataType::TLOG::Result]
-      def get(key)
-        result = connection.query("TLOG", "GET", key)
+      def get(key, count = nil)
+        params = ["TLOG", "GET", key]
+
+        params.push(count) if count
+
+        result = connection.query(*params)
 
         Result.parse(result)
       end
