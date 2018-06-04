@@ -64,3 +64,14 @@ Install the gem from the working source code:
 ```text
 $ rake install
 ```
+
+## Database Connection
+
+The connection URI must be specified in the format: `schema://host:port`, where
+the schema is `jylis`. The `host` can be a host name, IP address, or domain name
+of the database host to connect to. The `port` is optional and defaults to
+`6379` unless otherwise specified.
+
+```ruby
+Jylis.connect("jylis://host:port")
+```
