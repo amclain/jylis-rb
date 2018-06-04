@@ -181,6 +181,17 @@ Jylis.pncount.get "subscribers"
 # => 2
 ```
 
+### MVREG
+
+Multi-Value Register <sup>[[link](https://jemc.github.io/jylis/docs/types/mvreg/)]</sup>
+
+```ruby
+Jylis.mvreg.set "thermostat", 68
+
+Jylis.mvreg.get "thermostat"
+# => ["68"]
+```
+
 ### Raw Query
 
 If this library doesn't contain a method for the query you would like to
