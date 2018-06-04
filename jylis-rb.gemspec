@@ -22,6 +22,7 @@ Gem::Specification.new do |spec|
     ]
   
   spec.add_dependency "hiredis", "~> 0.6.1"
+  spec.add_dependency "oj",      "~> 3.6"
 
   spec.add_development_dependency "rake",      "~> 12.3"
   spec.add_development_dependency "yard",      "~> 0.9", ">= 0.9.13"

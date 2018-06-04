@@ -120,5 +120,13 @@ describe Jylis do
 
       Jylis.pncount.should eq pncount
     end
+
+    specify "ujson" do
+      ujson = OpenStruct.new
+
+      connection.should_receive(:ujson).exactly(:once) { ujson }
+
+      Jylis.ujson.should eq ujson
+    end
   end
 end

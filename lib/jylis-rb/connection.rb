@@ -93,6 +93,13 @@ class Jylis
       @pncount ||= Jylis::DataType::PNCOUNT.new(self)
     end
 
+    # UJSON functions
+    #
+    # @return [Jylis::DataType::UJSON]
+    def ujson
+      @ujson ||= Jylis::DataType::UJSON.new(self)
+    end
+
     private
 
     # Connect to the server.

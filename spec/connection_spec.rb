@@ -161,5 +161,9 @@ describe Jylis::Connection do
     specify "pncount" do
       connection.pncount.should be_a Jylis::DataType::PNCOUNT
     end
+
+    specify "ujson" do
+      connection.ujson.should be_a Jylis::DataType::UJSON
+    end
   end
 end

@@ -59,5 +59,10 @@ class Jylis
     def pncount
       current.pncount
     end
+
+    # @see Jylis::Connection#ujson
+    def ujson
+      current.ujson
+    end
   end
 end
