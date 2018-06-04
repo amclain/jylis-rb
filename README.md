@@ -107,6 +107,22 @@ However, be sure to consult the [API documentation](http://www.rubydoc.info/gems
 or the [Jylis documentation](https://jemc.github.io/jylis/docs/types/) for the
 exact format of your particular query.
 
+### TREG
+
+Timestamped Register <sup>[[link](https://jemc.github.io/jylis/docs/types/treg/)]</sup>
+
+```ruby
+Jylis.treg.set "lamp_brightness", 80, 1528082143
+
+result = Jylis.treg.get "lamp_brightness"
+# => #<Jylis::DataType::TREG::Result:0x00005598dd3941c8 @timestamp=1528082143, @value="80">
+
+result.value
+# => "80"
+result.timestamp
+# => 1528082143
+```
+
 ### Raw Query
 
 If this library doesn't contain a method for the query you would like to
