@@ -157,6 +157,18 @@ Jylis.tlog.cutoff "temperature"
 # => 1528082170
 ```
 
+### GCOUNT
+
+Grow-Only Counter <sup>[[link](https://jemc.github.io/jylis/docs/types/gcount/)]</sup>
+
+```ruby
+Jylis.gcount.inc "mileage", 10
+Jylis.gcount.inc "mileage", 5
+
+Jylis.gcount.get "mileage"
+# => 15
+```
+
 ### Raw Query
 
 If this library doesn't contain a method for the query you would like to
