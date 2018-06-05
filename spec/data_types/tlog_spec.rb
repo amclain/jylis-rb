@@ -3,8 +3,9 @@ describe Jylis::DataType::TLOG do
   let(:connection) { OpenStruct.new }
   let(:key)        { "temperature" }
   let(:value)      { 72 }
-  let(:timestamp)  { 100 }
   let(:count)      { 20 }
+  let(:timestamp)  { 1528238308 }
+  let(:iso8601)    { "2018-06-05T22:38:28Z" }
 
   describe "interface" do
     specify { tlog.should respond_to(:get) }
@@ -51,20 +52,30 @@ describe Jylis::DataType::TLOG do
     end
   end
 
-  specify "ins" do
-    connection.should_receive(:query).with("TLOG", "INS", key, value, timestamp) {
-      "OK"
-    }
+  describe "ins" do
+    specify do
+      connection.should_receive(:query).with("TLOG", "INS", key, value, timestamp) {
+        "OK"
+      }
 
-    tlog.ins(key, value, timestamp)
-  end
+      tlog.ins(key, value, timestamp)
+    end
 
-  specify "ins failed" do
-    connection.should_receive(:query).with("TLOG", "INS", key, value, timestamp) {
-      ""
-    }
+    specify "failed" do
+      connection.should_receive(:query).with("TLOG", "INS", key, value, timestamp) {
+        ""
+      }
 
-    expect { tlog.ins(key, value, timestamp) }.to raise_error StandardError
+      expect { tlog.ins(key, value, timestamp) }.to raise_error StandardError
+    end
+
+    specify "with iso8601 timestamp" do
+      connection.should_receive(:query).with("TLOG", "INS", key, value, timestamp) {
+        "OK"
+      }
+
+      tlog.ins(key, value, iso8601)
+    end
   end
 
   specify "size" do
@@ -79,20 +90,30 @@ describe Jylis::DataType::TLOG do
     tlog.cutoff(key).should eq 25
   end
 
-  specify "trimat" do
-    connection.should_receive(:query).with("TLOG", "TRIMAT", key, timestamp) {
-      "OK"
-    }
+  describe "trimat" do
+    specify do
+      connection.should_receive(:query).with("TLOG", "TRIMAT", key, timestamp) {
+        "OK"
+      }
 
-    tlog.trimat(key, timestamp)
-  end
+      tlog.trimat(key, timestamp)
+    end
 
-  specify "trimat failed" do
-    connection.should_receive(:query).with("TLOG", "TRIMAT", key, timestamp) {
-      ""
-    }
+    specify "failed" do
+      connection.should_receive(:query).with("TLOG", "TRIMAT", key, timestamp) {
+        ""
+      }
 
-    expect { tlog.trimat(key, timestamp) }.to raise_error StandardError
+      expect { tlog.trimat(key, timestamp) }.to raise_error StandardError
+    end
+
+    specify "with iso8601 timestamp" do
+      connection.should_receive(:query).with("TLOG", "TRIMAT", key, timestamp) {
+        "OK"
+      }
+
+      tlog.trimat(key, iso8601)
+    end
   end
 
   specify "trim" do

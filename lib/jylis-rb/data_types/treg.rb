@@ -55,8 +55,11 @@ class Jylis
       end
 
       # Set a `value` and `timestamp` for the register at `key`.
+      #
+      # @param timestamp [Integer, String] a unix or iso8601 formatted timestamp
       def set(key, value, timestamp)
-        result = connection.query("TREG", "SET", key, value, timestamp)
+        timestamp = Time.parse(timestamp).utc.to_i if timestamp.is_a?(String)
+        result    = connection.query("TREG", "SET", key, value, timestamp)
 
         unless result == "OK"
           raise "Failed: TREG SET #{key} #{value} #{timestamp}"

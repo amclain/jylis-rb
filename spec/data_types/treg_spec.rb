@@ -3,7 +3,8 @@ describe Jylis::DataType::TREG do
   let(:connection) { OpenStruct.new }
   let(:key)        { "temperature" }
   let(:value)      { 72.1 }
-  let(:timestamp)  { 100 }
+  let(:timestamp)  { 1528238308 }
+  let(:iso8601)    { "2018-06-05T22:38:28Z" }
 
   describe "interface" do
     specify { treg.should respond_to(:get) }
@@ -20,19 +21,29 @@ describe Jylis::DataType::TREG do
     result.timestamp.should eq timestamp
   end
 
-  specify "set" do
-    connection.should_receive(:query).with("TREG", "SET", key, value, timestamp) {
-      "OK"
-    }
+  describe "set" do
+    specify do
+      connection.should_receive(:query).with("TREG", "SET", key, value, timestamp) {
+        "OK"
+      }
 
-    treg.set(key, value, timestamp)
-  end
+      treg.set(key, value, timestamp)
+    end
 
-  specify "set failed" do
-    connection.should_receive(:query).with("TREG", "SET", key, value, timestamp) {
-      ""
-    }
+    specify "failed" do
+      connection.should_receive(:query).with("TREG", "SET", key, value, timestamp) {
+        ""
+      }
 
-    expect { treg.set(key, value, timestamp) }.to raise_error StandardError
+      expect { treg.set(key, value, timestamp) }.to raise_error StandardError
+    end
+
+    specify "with iso8601 timestamp" do
+      connection.should_receive(:query).with("TREG", "SET", key, value, timestamp) {
+        "OK"
+      }
+
+      treg.set(key, value, iso8601)
+    end
   end
 end

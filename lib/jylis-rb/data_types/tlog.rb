@@ -111,8 +111,11 @@ class Jylis
       # end
 
       # Insert a `value`/`timestamp` entry into the log at `key`.
+      #
+      # @param timestamp [Integer, String] a unix or iso8601 formatted timestamp
       def ins(key, value, timestamp)
-        result = connection.query("TLOG", "INS", key, value, timestamp)
+        timestamp = Time.parse(timestamp).utc.to_i if timestamp.is_a?(String)
+        result    = connection.query("TLOG", "INS", key, value, timestamp)
 
         unless result == "OK"
           raise "Failed: TLOG INS #{key} #{value} #{timestamp}"
@@ -131,8 +134,11 @@ class Jylis
 
       # Raise the cutoff timestamp of the log, causing any entries to be
       # discarded whose timestamp is earlier than the newly given `timestamp`.
+      #
+      # @param timestamp [Integer, String] a unix or iso8601 formatted timestamp
       def trimat(key, timestamp)
-        result = connection.query("TLOG", "TRIMAT", key, timestamp)
+        timestamp = Time.parse(timestamp).utc.to_i if timestamp.is_a?(String)
+        result    = connection.query("TLOG", "TRIMAT", key, timestamp)
 
         unless result == "OK"
           raise "Failed: TLOG TRIMAT #{key} #{timestamp}"
