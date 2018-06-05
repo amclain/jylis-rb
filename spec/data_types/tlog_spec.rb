@@ -116,31 +116,35 @@ describe Jylis::DataType::TLOG do
     end
   end
 
-  specify "trim" do
-    connection.should_receive(:query).with("TLOG", "TRIM", key, count) {
-      "OK"
-    }
+  describe "trim" do
+    specify do
+      connection.should_receive(:query).with("TLOG", "TRIM", key, count) {
+        "OK"
+      }
 
-    tlog.trim(key, count)
+      tlog.trim(key, count)
+    end
+
+    specify "failed" do
+      connection.should_receive(:query).with("TLOG", "TRIM", key, count) {
+        ""
+      }
+
+      expect { tlog.trim(key, count) }.to raise_error StandardError
+    end
   end
 
-  specify "trim failed" do
-    connection.should_receive(:query).with("TLOG", "TRIM", key, count) {
-      ""
-    }
+  describe "clr" do
+    specify do
+      connection.should_receive(:query).with("TLOG", "CLR", key) { "OK" }
 
-    expect { tlog.trim(key, count) }.to raise_error StandardError
-  end
+      tlog.clr(key)
+    end
 
-  specify "clr" do
-    connection.should_receive(:query).with("TLOG", "CLR", key) { "OK" }
+    specify "failed" do
+      connection.should_receive(:query).with("TLOG", "CLR", key) { "" }
 
-    tlog.clr(key)
-  end
-
-  specify "clr failed" do
-    connection.should_receive(:query).with("TLOG", "CLR", key) { "" }
-
-    expect { tlog.clr(key) }.to raise_error StandardError
+      expect { tlog.clr(key) }.to raise_error StandardError
+    end
   end
 end
