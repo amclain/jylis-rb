@@ -226,3 +226,24 @@ Jylis.query "TLOG", "INS", "temperature", 72.6, 5
 Jylis.query "TLOG", "GET", "temperature"
 # => [["72.6", 5]]
 ```
+
+### Timestamps
+
+In addition to supporting integer timestamps as defined by the Jylis spec, this
+library also has helpers to convert the Jylis `Timestamped` data types to/from
+ISO 8601. Functions that have a `timestamp` parameter will automatically convert
+an ISO 8601 string to a Unix timestamp.
+
+```ruby
+Jylis.treg.set "volume", 64, "2018-06-06T01:42:57Z"
+
+result = Jylis.treg.get "volume"
+# => #<Jylis::DataType::TREG::Result:0x00005609aa767f00 @timestamp=1528249377, @value="64">
+
+result.timestamp
+# => 1528249377
+result.time
+# => 2018-06-05 18:42:57 -0700
+result.timestamp_iso8601
+# => "2018-06-06T01:42:57Z"
+```
