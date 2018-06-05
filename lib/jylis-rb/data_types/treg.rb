@@ -33,6 +33,16 @@ class Jylis
         def to_a
           [value, timestamp]
         end
+
+        # @return [Time] the timestamp as a {Time} object
+        def time
+          Time.at(timestamp)
+        end
+
+        # @return [String] the timestamp as an ISO8601 formatted string
+        def timestamp_iso8601
+          time.utc.iso8601
+        end
       end
 
       # Get the latest `value` and `timestamp` for the register at `key`.

@@ -1,13 +1,16 @@
 describe Jylis::DataType::TREG::Result do
   let(:treg_result) { Jylis::DataType::TREG::Result.new(value, timestamp) }
   let(:value)       { 72.1 }
-  let(:timestamp)   { 100 }
+  let(:timestamp)   { 1528238308 }
+  let(:iso8601)     { "2018-06-05T22:38:28Z" }
 
   describe "interface" do
     specify { treg_result.should respond_to(:value) }
     specify { treg_result.should respond_to(:timestamp) }
     specify { treg_result.should respond_to(:==) }
     specify { treg_result.should respond_to(:to_a) }
+    specify { treg_result.should respond_to(:time) }
+    specify { treg_result.should respond_to(:timestamp_iso8601) }
   end
 
   it "initializes correctly" do
@@ -38,5 +41,14 @@ describe Jylis::DataType::TREG::Result do
     expected = [value, timestamp]
 
     treg_result.to_a.should eq expected
+  end
+
+  it "returns a Time object" do
+    treg_result.time.should be_a Time
+    treg_result.time.should eq Time.at(timestamp)
+  end
+
+  it "returns an iso8601 timestamp" do
+    treg_result.timestamp_iso8601.should eq iso8601
   end
 end

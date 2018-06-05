@@ -1,13 +1,16 @@
 describe Jylis::DataType::TLOG::Row do
   let(:tlog_result) { Jylis::DataType::TLOG::Row.new(value, timestamp) }
   let(:value)       { 72.1 }
-  let(:timestamp)   { 100 }
+  let(:timestamp)   { 1528238308 }
+  let(:iso8601)     { "2018-06-05T22:38:28Z" }
 
   describe "interface" do
     specify { tlog_result.should respond_to(:value) }
     specify { tlog_result.should respond_to(:timestamp) }
     specify { tlog_result.should respond_to(:==) }
     specify { tlog_result.should respond_to(:to_a) }
+    specify { tlog_result.should respond_to(:time) }
+    specify { tlog_result.should respond_to(:timestamp_iso8601) }
   end
 
   it "initializes correctly" do
@@ -38,5 +41,14 @@ describe Jylis::DataType::TLOG::Row do
     expected = [value, timestamp]
 
     tlog_result.to_a.should eq expected
+  end
+
+  it "returns a Time object" do
+    tlog_result.time.should be_a Time
+    tlog_result.time.should eq Time.at(timestamp)
+  end
+
+  it "returns an iso8601 timestamp" do
+    tlog_result.timestamp_iso8601.should eq iso8601
   end
 end
