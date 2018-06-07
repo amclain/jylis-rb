@@ -101,15 +101,6 @@ class Jylis
         Result.parse(result)
       end
 
-      # # Set a `value` and `timestamp` for the register at `key`.
-      # def set(key, value, timestamp)
-        # result = connection.query("TLOG", "SET", key, value, timestamp)
-
-        # unless result == "OK"
-        #   raise "Failed: TLOG SET #{key} #{value} #{timestamp}"
-        # end
-      # end
-
       # Insert a `value`/`timestamp` entry into the log at `key`.
       #
       # @param timestamp [Integer, String] a unix or iso8601 formatted timestamp
