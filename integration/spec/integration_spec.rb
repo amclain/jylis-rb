@@ -129,4 +129,48 @@ describe "integration tests" do
 
     Jylis.mvreg.get("temperature").should eq ["68"]
   end
+
+  describe "UJSON" do
+    specify "hash values" do
+      Jylis.ujson.set("users", "alice", {admin: false})
+      Jylis.ujson.set("users", "brett", {admin: false})
+      Jylis.ujson.set("users", "carol", {admin: true})
+
+      Jylis.ujson.get("users").should eq({
+        "alice" => {"admin" => false},
+        "brett" => {"admin" => false},
+        "carol" => {"admin" => true},
+      })
+
+      Jylis.ujson.ins("users", "brett", "banned", true)
+
+      Jylis.ujson.get("users").should eq({
+        "alice" => {"admin" => false},
+        "brett" => {"admin" => false, "banned" => true},
+        "carol" => {"admin" => true},
+      })
+
+      Jylis.ujson.clr("users", "alice")
+
+      Jylis.ujson.get("users").should eq({
+        "brett" => {"admin" => false, "banned" => true},
+        "carol" => {"admin" => true},
+      })
+    end
+
+    specify "array values" do
+      Jylis.ujson.ins("admins", "carol")
+
+      Jylis.ujson.get("admins").should eq "carol"
+
+      Jylis.ujson.ins("admins", "alice")
+
+      # List is sorted because order is nondeterministic.
+      Jylis.ujson.get("admins").sort.should eq ["alice", "carol"]
+
+      Jylis.ujson.rm("admins", "carol")
+
+      Jylis.ujson.get("admins").should eq "alice"
+    end
+  end
 end
