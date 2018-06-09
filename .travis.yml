@@ -1,3 +1,14 @@
 language: ruby
 rvm:
   - 2.5.1
+
+jobs:
+  include:
+    - stage: unit tests
+      script: bundle exec rake
+
+    - stage: integration tests
+      sudo: required
+      services:
+        - docker
+      script: bundle exec rake integration

@@ -3,8 +3,15 @@ require "yard"
 
 task :default => [:test]
 
-desc "Run tests"
+desc "Run unit tests"
 RSpec::Core::RakeTask.new :test
+
+desc "Run integration tests"
+task :integration do
+  Dir.chdir("integration")
+
+  exec "bundle exec rspec"
+end
 
 desc "Build the gem"
 task :build => [:doc] do
