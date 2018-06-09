@@ -41,6 +41,11 @@ class Jylis
           @rows.count
         end
 
+        # @return [Boolean] true if there are no rows
+        def empty?
+          @rows.empty?
+        end
+
         # Reconstruct the raw result returned by the database.
         def to_a
           @rows.map(&:to_a)

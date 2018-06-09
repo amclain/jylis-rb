@@ -11,6 +11,7 @@ describe Jylis::DataType::TLOG::Result do
 
     specify { tlog_result.should respond_to(:[]) }
     specify { tlog_result.should respond_to(:count) }
+    specify { tlog_result.should respond_to(:empty?) }
     specify { tlog_result.should respond_to(:to_a) }
   end
 
@@ -33,6 +34,12 @@ describe Jylis::DataType::TLOG::Result do
 
   specify "count" do
     tlog_result.count.should eq 2
+  end
+
+  specify "empty?" do
+    tlog_result.empty?.should eq false
+
+    tlog_class.new([]).empty?.should eq true
   end
 
   specify "to_a reconstructs the raw result returned by the database" do

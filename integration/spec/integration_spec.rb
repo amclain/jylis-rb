@@ -80,7 +80,7 @@ describe "integration tests" do
 
       Jylis.tlog.clr("temperature")
 
-      Jylis.tlog.get("temperature").to_a.should eq []
+      Jylis.tlog.get("temperature").empty?.should eq true
     end
 
     specify "with iso8601 timestamp" do
