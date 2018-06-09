@@ -39,4 +39,74 @@ describe "integration tests" do
       result.timestamp_iso8601.should eq "2018-06-05T22:38:28Z"
     end
   end
+
+  describe "TLOG" do
+    specify do
+      Jylis.tlog.ins("temperature", 68, 1528238310)
+      Jylis.tlog.ins("temperature", 70, 1528238320)
+      Jylis.tlog.ins("temperature", 73, 1528238330)
+
+      results = Jylis.tlog.get("temperature")
+
+      results.count.should        eq 3
+      results[0].value.should     eq "73"
+      results[0].timestamp.should eq 1528238330
+      results[1].value.should     eq "70"
+      results[1].timestamp.should eq 1528238320
+      results[2].value.should     eq "68"
+      results[2].timestamp.should eq 1528238310
+
+      Jylis.tlog.size("temperature").should eq 3
+
+      Jylis.tlog.trimat("temperature", 1528238320)
+
+      Jylis.tlog.cutoff("temperature").should eq 1528238320
+
+      results = Jylis.tlog.get("temperature")
+
+      results.count.should        eq 2
+      results[0].value.should     eq "73"
+      results[0].timestamp.should eq 1528238330
+      results[1].value.should     eq "70"
+      results[1].timestamp.should eq 1528238320
+
+      Jylis.tlog.trim("temperature", 1)
+
+      results = Jylis.tlog.get("temperature")
+
+      results.count.should        eq 1
+      results[0].value.should     eq "73"
+      results[0].timestamp.should eq 1528238330
+
+      Jylis.tlog.clr("temperature")
+
+      Jylis.tlog.get("temperature").to_a.should eq []
+    end
+
+    specify "with iso8601 timestamp" do
+      Jylis.tlog.ins("temperature", 68, "2018-06-05T22:38:30Z")
+      Jylis.tlog.ins("temperature", 70, "2018-06-05T22:38:40Z")
+      Jylis.tlog.ins("temperature", 73, "2018-06-05T22:38:50Z")
+
+      results = Jylis.tlog.get("temperature")
+
+      results.count.should                eq 3
+      results[0].value.should             eq "73"
+      results[0].timestamp_iso8601.should eq "2018-06-05T22:38:50Z"
+      results[1].value.should             eq "70"
+      results[1].timestamp_iso8601.should eq "2018-06-05T22:38:40Z"
+      results[2].value.should             eq "68"
+      results[2].timestamp_iso8601.should eq "2018-06-05T22:38:30Z"
+
+      Jylis.tlog.trimat("temperature", "2018-06-05T22:38:40Z")
+
+      results = Jylis.tlog.get("temperature")
+
+      results.count.should                eq 2
+      results[0].value.should             eq "73"
+      results[0].timestamp_iso8601.should eq "2018-06-05T22:38:50Z"
+      results[1].value.should             eq "70"
+      results[1].timestamp_iso8601.should eq "2018-06-05T22:38:40Z"
+    end
+  end
 end
