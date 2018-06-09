@@ -1,8 +1,10 @@
 require "pry"
 require "rspec/its"
 require "coveralls"
+require "simplecov"
 require "ostruct"
 
+SimpleCov.add_filter("spec")
 Coveralls.noisy = true # Display code coverage locally.
 
 Coveralls.wear!
