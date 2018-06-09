@@ -20,5 +20,23 @@ describe "integration tests" do
   after       { Jylis.disconnect if Jylis.connected? }
   after(:all) { stop_server }
 
-  specify ""
+  describe "TREG" do
+    specify do
+      Jylis.treg.set("temperature", 72.1, 1528238308)
+
+      result = Jylis.treg.get("temperature")
+
+      result.value.should     eq "72.1"
+      result.timestamp.should eq 1528238308
+    end
+
+    specify "with iso8601 timestamp" do
+      Jylis.treg.set("temperature", 72.1, "2018-06-05T22:38:28Z")
+
+      result = Jylis.treg.get("temperature")
+
+      result.value.should             eq "72.1"
+      result.timestamp_iso8601.should eq "2018-06-05T22:38:28Z"
+    end
+  end
 end
