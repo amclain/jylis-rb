@@ -123,4 +123,10 @@ describe "integration tests" do
 
     Jylis.pncount.get("subscribers").should eq 5
   end
+
+  specify "MVREG" do
+    Jylis.mvreg.set("temperature", 68)
+
+    Jylis.mvreg.get("temperature").should eq ["68"]
+  end
 end
