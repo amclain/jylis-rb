@@ -109,4 +109,11 @@ describe "integration tests" do
       results[1].timestamp_iso8601.should eq "2018-06-05T22:38:40Z"
     end
   end
+
+  specify "GCOUNT" do
+    Jylis.gcount.inc("mileage", 5)
+    Jylis.gcount.inc("mileage", 10)
+
+    Jylis.gcount.get("mileage").should eq 15
+  end
 end
