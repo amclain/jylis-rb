@@ -116,4 +116,11 @@ describe "integration tests" do
 
     Jylis.gcount.get("mileage").should eq 15
   end
+
+  specify "PNCOUNT" do
+    Jylis.pncount.inc("subscribers", 9)
+    Jylis.pncount.dec("subscribers", 4)
+
+    Jylis.pncount.get("subscribers").should eq 5
+  end
 end
