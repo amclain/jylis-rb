@@ -3,21 +3,21 @@ require "yard"
 
 task :default => [:test]
 
-# Run tests.
+desc "Run tests"
 RSpec::Core::RakeTask.new :test
 
-# Build the gem.
+desc "Build the gem"
 task :build => [:doc] do
   Dir["*.gem"].each {|file| File.delete file}
   system "gem build *.gemspec"
 end
 
-# Rebuild and [re]install the gem.
+desc "Rebuild and [re]install the gem"
 task :install => [:build] do
   system "gem install *.gem"
 end
 
-# Generate documentation.
+desc "Generate documentation"
 YARD::Rake::YardocTask.new :doc do |task|
   task.options = %w(- README.md license.txt)
 end
